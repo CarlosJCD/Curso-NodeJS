@@ -1,4 +1,5 @@
-const { getAge, getUUID } = require("./plugins")
+import { getAge, getUUID, buildLogger } from "./plugins"
+
 
 
 // const { emailTemplate } = require("./js-foundation/01-template");
@@ -6,10 +7,20 @@ const { getAge, getUUID } = require("./plugins")
 // const { getUserById } = require("./js-foundation/03-callback") ;
 // const { getUserById } = require("./js-foundation/04-arrow") ;
 // const { buildMakePerson } = require("./js-foundation/05-factory"); 
-const getPokemonById = require("./js-foundation/06-promises"); 
+// const getPokemonById = require("./js-foundation/06-promises"); 
 
-getPokemonById(1).then( pokemonName => console.log({pokemonName}))
+
+const logger = buildLogger("app.js");
+
+logger.log("Hola Mundo");
+logger.error("Error inesperado");
+
+// getPokemonById(1)
+//     .then( pokemonName => console.log({pokemonName}))
+//     .catch( error => console.error( error ))
+//     .finally( () => console.log("Finally"))
  
+
 
 
 // ! Function factory usando patron adaptador e inyección de dependencias
