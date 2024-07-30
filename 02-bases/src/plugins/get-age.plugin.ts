@@ -1,5 +1,4 @@
-import { getAge as getAgePlugin } from ".";
+// const getAgePlugin = require('get-age')
 
 
-
-export const getAge: (birthdate: string) => (number | Error) = (birthdate: string) =>  getAgePlugin(birthdate);
+export const getAge: (birthdate: string) => (number) = (birthdate: string) =>  new Date().getFullYear() - new Date(birthdate).getFullYear();;

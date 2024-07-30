@@ -1,4 +1,4 @@
-import { getAge, getUUID, buildLogger } from "./plugins"
+// import { getAge, getUUID, buildLogger } from "./plugins"
 
 
 
@@ -10,10 +10,10 @@ import { getAge, getUUID, buildLogger } from "./plugins"
 // const getPokemonById = require("./js-foundation/06-promises"); 
 
 
-const logger = buildLogger("app.js");
+// const logger = buildLogger("app.js");
 
-logger.log("Hola Mundo");
-logger.error("Error inesperado");
+// logger.log("Hola Mundo");
+// logger.error("Error inesperado");
 
 // getPokemonById(1)
 //     .then( pokemonName => console.log({pokemonName}))
