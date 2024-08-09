@@ -1,10 +1,10 @@
 import fs from "fs";
 
 export interface SaveFileUseCase {
-    execute: ( options: Options) => boolean;
+    execute: ( options: SaveFileOptions) => boolean;
 }
 
-export interface Options {
+export interface SaveFileOptions {
     fileContent : string;
     destination?: string;
     fileName?   : string;
@@ -20,7 +20,7 @@ export class SaveFile implements SaveFileUseCase {
         fileContent, 
         destination = "outputs", 
         fileName = "table"
-    }: Options): boolean {
+    }: SaveFileOptions): boolean {
         try {
             if(!fs.existsSync(destination)){
                 fs.mkdirSync(destination, { recursive: true});
@@ -32,7 +32,7 @@ export class SaveFile implements SaveFileUseCase {
             console.log("File Created At: " + filePath);
             return true;
         } catch (error) {
-            console.error(error)
+            // console.error(error)
             return false
         }
 
