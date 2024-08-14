@@ -1,4 +1,4 @@
-import { LogEntity, LogSeverityLevel } from "../../entities/log.entity";
+import { LogEntity, LogEntityOptions, LogSeverityLevel } from "../../entities/log.entity";
 import { LogRepository } from "../../repository/log.repository";
 
 export interface CheckServiceUseCase {
@@ -10,7 +10,7 @@ type ErrorCallback = (( error: Error ) => void) | undefined;
 
 
 export class CheckService implements CheckServiceUseCase{
-    
+    private ORIGIN_LOG_STRING = "CheckService.ts"
     constructor(
         private readonly logRepository: LogRepository, 
         private readonly successCallBack: SuccessCallBack,
@@ -18,25 +18,36 @@ export class CheckService implements CheckServiceUseCase{
     ) {}
 
     public async execute( url: string ): Promise<boolean> {
+        let newLogOptions: LogEntityOptions = { 
+            level:   LogSeverityLevel.low, 
+            message: "", 
+            origin:  this.ORIGIN_LOG_STRING  
+        };
+        let success = true;
+        
         try {
             const response = await fetch(url);
-            if(!  response.ok) throw new Error("Error on check service " + url);
+            if(! response.ok) throw new Error("Error on check service " + url);
             
-            const newLog = new LogEntity(LogSeverityLevel.low ,`Service ${url} working`)
-            this.logRepository.saveLog(newLog);
-
-            this.successCallBack && this.successCallBack();
-            
-            return true;
+            newLogOptions.message = `Service ${url} working`;
         } catch (error) {
-
-            const newLog = new LogEntity(LogSeverityLevel.high ,`${url} error: ${error}`)
-            this.logRepository.saveLog(newLog);
+            newLogOptions.level   = LogSeverityLevel.high;
+            newLogOptions.message = `Service ${url} working`;
             
+            success               = false
+
             this.errorCallBack && this.errorCallBack(error as Error);
             
-            return false
+        } finally {
+            const newLog = new LogEntity(newLogOptions);
+
+            this.logRepository.saveLog(newLog);            
+
+            if(success){
+                this.successCallBack && this.successCallBack();
+            }
         }
+        return success;
     }
 
 }
