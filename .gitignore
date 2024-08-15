@@ -34,3 +34,7 @@ coverage
 # enviroment variables file
 .env
 
+# DB directories
+
+mongoData
+postgresData

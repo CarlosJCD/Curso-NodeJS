@@ -1,9 +1,11 @@
 import { CheckService } from "../domain/use-cases/checks/CheckService";
+import { CheckServiceMultiple } from "../domain/use-cases/checks/CheckServiceMultiple";
 import { FileSystemDataSource } from "../infrastructure/datasources/file-system.datasource";
+import { MongoLogDataSource } from "../infrastructure/datasources/mongo-log.datasource";
 import { LogRepositoryImpl } from "../infrastructure/repositories/log.repository.impl";
 import { CronService } from "./cron/CronService";
 
-const fileSystemLogRepository = new LogRepositoryImpl( new FileSystemDataSource() );
+const logRepository = new LogRepositoryImpl( new MongoLogDataSource() );
 
 
 export class Server {
@@ -16,7 +18,7 @@ export class Server {
             "*/5 * * * * *", 
             () => {
                 new CheckService(
-                    fileSystemLogRepository,
+                    logRepository,
                     () => console.log(this.SERVICE_URL + " is ok"),
                     (error: Error) => console.log(error)
                 ).execute(this.SERVICE_URL)
@@ -26,11 +28,11 @@ export class Server {
         CronService.createJob(
             "*/5 * * * * *", 
             () => {
-                new CheckService(
-                    fileSystemLogRepository,
+                new CheckServiceMultiple(
+                    [logRepository],
                     () => console.log(this.SERVICE_URL + " is ok"),
                     (error: Error) => console.log(error)
-                ).execute("http://localhost:3000")
+                ).execute(this.SERVICE_URL)
             } 
         );
     }
