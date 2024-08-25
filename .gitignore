@@ -33,8 +33,11 @@ coverage
 
 # enviroment variables file
 .env
+.env.test
 
 # DB directories
 
 mongoData
+mongoDataTest
 postgresData
+postgresDataTest
