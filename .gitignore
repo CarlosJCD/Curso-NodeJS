@@ -41,3 +41,6 @@ mongoData
 mongoDataTest
 postgresData
 postgresDataTest
+
+# SSL Certificate
+keys/
