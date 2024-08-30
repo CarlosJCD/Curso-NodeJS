@@ -11,9 +11,10 @@ export class TodoRoutes {
         router.get("/:id", toDoController.getTodoById)
         
         router.post("/", toDoController.createTodo)
+        
         router.put("/:id", toDoController.updateTodo)
         
-        router.delete("/:id", toDoController.updateTodo)
+        router.delete("/:id", toDoController.deleteTodo)
 
         return router;
     }
