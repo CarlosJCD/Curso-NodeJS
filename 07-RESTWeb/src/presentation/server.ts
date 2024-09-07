@@ -4,20 +4,21 @@ import { AppRoutes } from "./routes";
 
 interface ServerOptions{
     PORT: number,
-    PUBLIC_DIR_NAME: string,
+    PUBLIC_DIR_NAME?: string,
     routes: Router
 }
 
 export class Server {
     
-    private app = express();
+    public readonly app = express();
+    private serverListener?: any;
     private readonly PORT: number;
     private readonly PUBLIC_DIR_NAME: string;
     private readonly routes: Router
 
     constructor(options: ServerOptions){
         this.PORT = options.PORT;
-        this.PUBLIC_DIR_NAME = options.PUBLIC_DIR_NAME;
+        this.PUBLIC_DIR_NAME = options.PUBLIC_DIR_NAME ?? "public";
         this.routes = options.routes;
     }
 
@@ -34,8 +35,12 @@ export class Server {
             response.sendFile(indexPath);
         })
 
-        this.app.listen(this.PORT, () => {
+        this.serverListener = this.app.listen(this.PORT, () => {
             console.log("Listening on port " + this.PORT);
         })
+    }
+
+    public close() {
+        this.serverListener?.close();
     }
 }

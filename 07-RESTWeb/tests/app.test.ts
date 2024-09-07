@@ -13,8 +13,8 @@ describe( 'should call server with arguments and start', () => {
 
     expect( Server ).toHaveBeenCalledTimes( 1 );
     expect( Server ).toHaveBeenCalledWith( {
-      port: envs.PORT,
-      public_path: envs.PUBLIC_DIR_NAME,
+      PORT: envs.PORT,
+      PUBLIC_DIR_NAME: envs.PUBLIC_DIR_NAME,
       routes: expect.any( Function ),
     } );
 
