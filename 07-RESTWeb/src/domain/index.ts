@@ -1,3 +1,4 @@
+import { from } from 'env-var';
 
 export * from './datasources/todo.datasource'
 export * from './dtos';
@@ -9,3 +10,7 @@ export * from './usecases/todo/update-todo';
 export * from './usecases/todo/delete-todo';
 export * from './usecases/todo/get-todo';
 export * from './usecases/todo/get-all-todos';
+
+export * from './errors/custom.error'
+
+export * from './dtos/auth/register-user.dto'
