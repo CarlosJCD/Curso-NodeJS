@@ -16,6 +16,12 @@ export class JWTAdapter {
     }
 
     static validateToken( token: string ){
+        return new Promise( (resolve) => {
+            jwt.verify( token, envs.JWT_SEED, (err, decoded) => {
+                if(err) return resolve(null);
 
+                resolve(decoded);
+            })
+        } )
     }
 }

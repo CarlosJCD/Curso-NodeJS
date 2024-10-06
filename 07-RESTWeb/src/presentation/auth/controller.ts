@@ -3,6 +3,7 @@ import { RegisterUserDTO } from "../../domain/dtos/auth/register-user.dto";
 import { CustomError } from "../../domain";
 import { AuthService } from "../services/auth.service";
 import { LoginUserDTO } from "../../domain/dtos/auth/login-user.dto";
+import { JWTAdapter } from "../../config";
 
 
 export class AuthController {
@@ -43,7 +44,14 @@ export class AuthController {
 
     }
 
-    validateEmail(request: Request, response: Response) {
+    async validateEmail(request: Request, response: Response) {
          
+        const {token} = request.params;
+
+        this.authService.validateEmail(token)
+            .then( () => response.json("Email was validated properly"))
+            .catch( error => this.handleError(error, response) )
+         
+        
     }
 }
