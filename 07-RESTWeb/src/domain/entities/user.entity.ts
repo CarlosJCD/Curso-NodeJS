@@ -2,6 +2,7 @@ import { CustomError } from "../errors/custom.error";
 
 export class UserEntity{
     constructor(
+        public id: string,
         public name: string,
         public email: string,
         public emailValidated: boolean,

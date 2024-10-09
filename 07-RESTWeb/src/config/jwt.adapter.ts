@@ -15,13 +15,13 @@ export class JWTAdapter {
         
     }
 
-    static validateToken( token: string ){
+    static async validateToken<T>(token: string): Promise< T | null> {
         return new Promise( (resolve) => {
             jwt.verify( token, envs.JWT_SEED, (err, decoded) => {
-                if(err) return resolve(null);
-
-                resolve(decoded);
-            })
-        } )
+                if( err ) return resolve(null);
+    
+                resolve( decoded as T);
+            });
+        })
     }
 }
