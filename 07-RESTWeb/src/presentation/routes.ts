@@ -2,6 +2,7 @@ import { Router } from "express";
 import { TodoRoutes } from "./todos/routes";
 import { AuthRoutes } from "./auth/routes";
 import { CategoryRoutes } from "./category/routes";
+import { ProductRoutes } from "./products/routes";
 
 export class AppRoutes {
 
@@ -11,6 +12,7 @@ export class AppRoutes {
         router.use("/api/todos", TodoRoutes.routes)
         router.use("/api/auth", AuthRoutes.routes)
         router.use("/api/categories", CategoryRoutes.routes)
+        router.use("/api/products", ProductRoutes.routes)
 
 
         return router;
