@@ -1,5 +1,6 @@
 import express, { Router } from "express";
 import path from "path";
+import fileUpload from "express-fileupload";
 import { AppRoutes } from "./routes";
 
 interface ServerOptions{
